@@ -1,0 +1,42 @@
+apply from: 'meddle.gradle'
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+
+greddle {
+    cacheDir = 'cache'
+}
+
+meddle {
+    version = "1.3.1"
+    location = "../meddle/build/libs/meddle-1.3.1.jar"
+}
+
+dynamicmappings {
+    version = "024"
+}
+
+meddleapi {
+    version = "1.0.6"
+}
+
+minecraft {
+    version = '1.9.4'
+}
+
+jar {
+    baseName = '001-meddlebootstrap'
+    version = '1.3.1'
+    
+    manifest {
+		attributes('TweakClass' : 'net.fybertech.meddlebootstrap.MeddleBootstrap')
+	}
+    
+    exclude('META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF')
+    
+    from (zipTree('../Meddle/build/libs/meddle-1.3.1.jar')) {
+        include '**/*.class'
+    }
+}
+

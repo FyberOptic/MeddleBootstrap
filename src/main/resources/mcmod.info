@@ -1,0 +1,15 @@
+[
+{
+  "modid": "meddlebootstrap",
+  "name": "MeddleBootstrap",
+  "description": "Allows the Meddle mod loader to bootstrap off of Forge.",
+  "version": "1.0-1.31",  
+  "url": "http://www.fybertech.net/minecraft/",
+  "updateUrl": "",
+  "authorList": ["FyberOptic"],
+  "credits": "FyberOptic",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
