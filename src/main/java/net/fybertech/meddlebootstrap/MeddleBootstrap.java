@@ -8,12 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import net.fybertech.meddle.Meddle.ModContainer;
+import net.fybertech.meddle.MeddleUtil;
 import net.minecraft.launchwrapper.ITweaker;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
-
-
-// TODO - mcmod.info
 
 
 
@@ -90,21 +88,23 @@ public class MeddleBootstrap implements ITweaker
 
 			
 			// Install a patch to all System.exit calls in net.minecraft.client.Minecraft to 
-			// avoid Forge's security manager going nuts when the game exits.
-			Class<? extends ITweaker> tweakClass = null;
-			try {
-				tweakClass = (Class<? extends ITweaker>) Class.forName("net.fybertech.exitpatch.ExitPatch", false, Launch.classLoader);		
-			} catch (Exception e) {
-				System.out.println("Error: Couldn't load ExitPatch class");
-			}
-			
-			if (tweakClass != null) {
-				ModContainer mod = new ModContainer(null);
-				mod.tweakClass = tweakClass;
-				mod.meta = null;
-				mod.id = "exitpatch";
-				net.fybertech.meddle.Meddle.loadedModsList.put(mod.id, mod);
-				System.out.println("Added ExitPatch to mods list");
+			// avoid Forge's security manager going nuts when the game exits.			
+			if (MeddleUtil.isClientJar()) {
+				Class<? extends ITweaker> tweakClass = null;
+				try {
+					tweakClass = (Class<? extends ITweaker>) Class.forName("net.fybertech.exitpatch.ExitPatch", false, Launch.classLoader);		
+				} catch (Exception e) {
+					System.out.println("Error: Couldn't load ExitPatch class");
+				}
+				
+				if (tweakClass != null) {
+					ModContainer mod = new ModContainer(null);
+					mod.tweakClass = tweakClass;
+					mod.meta = null;
+					mod.id = "exitpatch";
+					net.fybertech.meddle.Meddle.loadedModsList.put(mod.id, mod);
+					System.out.println("Added ExitPatch to mods list");
+				}
 			}
 		}
 
